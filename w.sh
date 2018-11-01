@@ -23,7 +23,7 @@ apt-get update -y
 # 安装依赖、安装LXDE+VncServer桌面环境
 # apt-get install libsdl1.2-dev -y
 apt-get install xorg -y
-apt-get install lxde-core -y
+apt-get install lxde -y
 apt-get install vnc4server -y
 apt-get install curl -y
 
