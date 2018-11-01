@@ -19,9 +19,11 @@ apt-get purge apache2* -y
 
 # 升级Debian
 apt-get update -y
+apt-get upgrade -y
+apt-get dist-upgrade -y
 
 # 安装依赖、安装LXDE+VncServer桌面环境
-# apt-get install libsdl1.2-dev -y
+apt-get install libsdl1.2-dev -y
 apt-get install xorg -y
 apt-get install lxde -y
 apt-get install vnc4server -y
@@ -294,7 +296,7 @@ echo "  Enter the RAM value to be set, for example: 1024"
 echo "----------------------------------------"
 echo ""
 
-read -e -p "please enter (Default size 512)：" nram
+read -e -p "please enter (Default size 512):" nram
 [[ -z ${nram} ]] && nram="512"
 
 echo ""
@@ -303,7 +305,7 @@ echo "  Enter the hard disk value to be set, for example: 10"
 echo "----------------------------------------"
 echo ""
 
-read -e -p "please enter (Default size 10)：" ndisk
+read -e -p "please enter (Default size 10):" ndisk
 [[ -z ${ndisk} ]] && ndisk="10"
 
 }
