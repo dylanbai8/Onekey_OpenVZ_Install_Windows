@@ -1,5 +1,9 @@
 ## OpenVZ虚拟化（架构）VPS安装Windows 安装笔记
 
+```
+wget -N --no-check-certificate git.io/w.sh && chmod +x w.sh && bash w.sh
+```
+
 ## 1.安装 Linux 桌面、安装 VNC 远程桌面、安装 Qemu 虚拟机
 
 ```
