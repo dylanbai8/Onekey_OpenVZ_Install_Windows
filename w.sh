@@ -27,7 +27,7 @@ apt-get dist-upgrade -y
 
 # 安装依赖、安装LXDE+VncServer桌面环境
 # apt-get install libsdl1.2-dev -y
-# apt-get install xorg -y
+apt-get install xorg -y
 apt-get install lxde -y
 apt-get install xrdp -y
 # apt-get install vnc4server -y
