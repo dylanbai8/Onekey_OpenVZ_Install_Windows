@@ -34,14 +34,14 @@ apt-get install curl -y
 echo "----------------------------------------"
 echo "  按提示设置 VNC Password 远程桌面密码"
 echo "----------------------------------------"
-vncserver :1
+vncpasswd
 vncserver -kill :1
 
 # VNC启动时自动启动LXDE桌面
-sed -i '/lxterminal/'d /root/.vnc/xstartup
-echo "lxterminal &" >> /root/.vnc/xstartup
-sed -i '/lxsession/'d /root/.vnc/xstartup
-echo "/usr/bin/lxsession -s LXDE &" >> /root/.vnc/xstartup
+# sed -i '/lxterminal/'d /root/.vnc/xstartup
+# echo "lxterminal &" >> /root/.vnc/xstartup
+# sed -i '/lxsession/'d /root/.vnc/xstartup
+# echo "/usr/bin/lxsession -s LXDE &" >> /root/.vnc/xstartup
 
 sed -i '/qemu-system-x86_64/'d /root/.vnc/xstartup
 
