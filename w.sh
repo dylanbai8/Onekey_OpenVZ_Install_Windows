@@ -22,8 +22,8 @@ apt-get update -y
 
 # 安装依赖、安装LXDE+VncServer桌面环境
 
-apt-get install lxde
-apt-get install xrdp
+sudo apt-get install lxde
+sudo apt-get install xrdp
 
 apt-get install curl -y
 
