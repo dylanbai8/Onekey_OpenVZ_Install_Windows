@@ -19,8 +19,10 @@ apt-get purge apache2 -y
 
 # 升级Debian
 apt-get update -y
-apt-get upgrade -y
-apt-get dist-upgrade -y
+# apt-get upgrade -y
+# apt-get dist-upgrade -y
+
+rm /var/lib/dpkg/info/$nomdupaquet* -f
 
 # mv /var/lib/dpkg/info /var/lib/dpkg/info.baksudo
 # mkdir /var/lib/dpkg/info
