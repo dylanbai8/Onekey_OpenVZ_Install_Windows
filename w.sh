@@ -19,21 +19,22 @@ apt-get purge apache2* -y
 
 # 升级Debian
 apt-get update -y
-apt-get upgrade -y
-apt-get dist-upgrade -y
+# apt-get upgrade -y
+# apt-get dist-upgrade -y
 
 # 安装依赖、安装LXDE+VncServer桌面环境
-apt-get install libsdl1.2-dev -y
-apt-get install xorg -y
+# apt-get install libsdl1.2-dev -y
+# apt-get install xorg -y
 apt-get install lxde -y
-apt-get install vnc4server -y
+apt-get install xrdp -y
+# apt-get install vnc4server -y
 apt-get install curl -y
 
 # 设置VNC密码
 echo "----------------------------------------"
 echo "  按提示设置 VNC Password 远程桌面密码"
 echo "----------------------------------------"
-vncserver :1 -geometry 1024x768
+vncserver :1
 vncserver -kill :1
 
 # VNC启动时自动启动LXDE桌面
