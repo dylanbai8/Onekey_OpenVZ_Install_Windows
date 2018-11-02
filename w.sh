@@ -21,9 +21,8 @@ apt-get purge apache2 -y
 apt-get update -y
 
 # 安装依赖、安装LXDE+VncServer桌面环境
-
-sudo apt-get install lxde
-sudo apt-get install xrdp
+apt-get install lxde -y
+apt-get install xrdp -y
 
 apt-get install curl -y
 
@@ -57,7 +56,9 @@ local_ip=`curl -4 ip.sb`
 clear
 echo "----------------------------------------"
 echo "  提示：安装 Lxde+VNC 远程桌面 成功"
-echo "  VNC服务器：${local_ip}:1 未启动"
+echo ""
+echo "  Windows远程桌面连接工具：${local_ip}:3389"
+echo "  VNC客户端连接地址：${local_ip}:1"
 echo "----------------------------------------"
 echo ""
 
@@ -102,7 +103,7 @@ mv winxp.img /root/IMG/win.img
 
 # VNC启动时自动启动win虚拟机
 sed -i '/qemu-system-x86_64/'d /root/.vnc/xstartup
-echo 'qemu-system-x86_64 -hda /root/IMG/win.img -m 512M -net nic,model=virtio -net user -redir tcp:3389::3389' >> /root/.vnc/xstartup
+echo 'qemu-system-x86_64 -hda /root/IMG/win.img -m 512M -net nic,model=virtio -net user -redir tcp:3388::3389' >> /root/.vnc/xstartup
 chmod +x /root/.vnc/xstartup
 }
 
@@ -115,7 +116,7 @@ clear
 echo "----------------------------------------"
 echo "  提示：安装 Qemu+WindowsXP 虚拟机 成功"
 echo "  WindowsXP 默认启动内存 512M 硬盘 4G"
-echo "  远程桌面地址：${local_ip}:3389 未启动"
+echo "  远程桌面地址：${local_ip}:3388 未启动"
 echo "----------------------------------------"
 echo ""
 
