@@ -15,12 +15,15 @@
 install_lxde_vnc(){
 
 # 卸载或去除不必要的系统服务
-apt-get purge apache2* -y
+apt-get purge apache2 -y
 
 # 升级Debian
 apt-get update -y
-# apt-get upgrade -y
-# apt-get dist-upgrade -y
+apt-get upgrade -y
+apt-get dist-upgrade -y
+
+# mv /var/lib/dpkg/info /var/lib/dpkg/info.baksudo
+# mkdir /var/lib/dpkg/info
 
 # 安装依赖、安装LXDE+VncServer桌面环境
 # apt-get install libsdl1.2-dev -y
