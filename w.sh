@@ -19,43 +19,34 @@ apt-get purge apache2 -y
 
 # 升级Debian
 apt-get update -y
-# apt-get upgrade -y
-# apt-get dist-upgrade -y
-
-rm /var/lib/dpkg/info/$nomdupaquet* -f
-
-# mv /var/lib/dpkg/info /var/lib/dpkg/info.baksudo
-# mkdir /var/lib/dpkg/info
 
 # 安装依赖、安装LXDE+VncServer桌面环境
-# apt-get install libsdl1.2-dev -y
-apt-get install xorg -y
-apt-get install lxde -y
-apt-get install xrdp -y
-# apt-get install vnc4server -y
+
+apt-get install lxde
+apt-get install xrdp
+
 apt-get install curl -y
 
 # 设置VNC密码
 echo "----------------------------------------"
 echo "  按提示设置 VNC Password 远程桌面密码"
 echo "----------------------------------------"
-vncpasswd
+vncserver :1
 vncserver -kill :1
 
 # VNC启动时自动启动LXDE桌面
-# sed -i '/lxterminal/'d /root/.vnc/xstartup
-# echo "lxterminal &" >> /root/.vnc/xstartup
-# sed -i '/lxsession/'d /root/.vnc/xstartup
-# echo "/usr/bin/lxsession -s LXDE &" >> /root/.vnc/xstartup
+sed -i '/lxsession/'d /root/.vnc/xstartup
+echo "/usr/bin/lxsession -s LXDE &" >> /root/.vnc/xstartup
+
+sed -i '/lxterminal/'d /root/.vnc/xstartup
+echo "lxterminal &" >> /root/.vnc/xstartup
 
 sed -i '/qemu-system-x86_64/'d /root/.vnc/xstartup
 
 chmod +x /root/.vnc/xstartup
 
-# 开机自启动VNC
-# wget https://www.dropbox.com/s/410jkds3nkg1dbl/vncserver
-# mv vncserver /etc/init.d/vncserver
-# chmod +x /etc/init.d/vncserver
+# 启动VNC
+vncserver :1
 }
 
 
