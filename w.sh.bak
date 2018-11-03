@@ -21,29 +21,9 @@ apt-get purge apache2 -y
 apt-get update -y
 
 # 安装依赖、安装LXDE+VncServer桌面环境
-
-apt-get install xorg -y
 apt-get install lxde -y
-apt-get install tightvncserver -y
+apt-get install xrdp -y
 apt-get install curl -y
-
-# 设置VNC密码
-echo "----------------------------------------"
-echo "  按提示设置 VNC Password 远程桌面密码"
-echo "----------------------------------------"
-vncserver :1
-vncserver -kill :1
-
-# VNC启动时自动启动LXDE桌面
-sed -i '/lxterminal/'d /root/.vnc/xstartup
-echo "lxterminal &" >> /root/.vnc/xstartup
-sed -i '/lxsession/'d /root/.vnc/xstartup
-echo "/usr/bin/lxsession -s LXDE &" >> /root/.vnc/xstartup
-
-sed -i '/qemu-system-x86_64/'d /root/.vnc/xstartup
-
-chmod +x /root/.vnc/xstartup
-
 }
 
 
@@ -54,7 +34,9 @@ local_ip=`curl -4 ip.sb`
 clear
 echo "----------------------------------------"
 echo "  提示：安装 Lxde+VNC 远程桌面 成功"
-echo "  VNC服务器：${local_ip}:1 未启动"
+echo ""
+echo "  Windows远程桌面连接工具：${local_ip}:3389"
+echo "  VNC客户端连接地址：${local_ip}:1"
 echo "----------------------------------------"
 echo ""
 
@@ -99,7 +81,7 @@ mv winxp.img /root/IMG/win.img
 
 # VNC启动时自动启动win虚拟机
 sed -i '/qemu-system-x86_64/'d /root/.vnc/xstartup
-echo 'qemu-system-x86_64 -hda /root/IMG/win.img -m 512M -net nic,model=virtio -net user -redir tcp:3389::3389' >> /root/.vnc/xstartup
+echo 'qemu-system-x86_64 -hda /root/IMG/win.img -m 512M -net nic,model=virtio -net user -redir tcp:3388::3389' >> /root/.vnc/xstartup
 chmod +x /root/.vnc/xstartup
 }
 
@@ -112,7 +94,7 @@ clear
 echo "----------------------------------------"
 echo "  提示：安装 Qemu+WindowsXP 虚拟机 成功"
 echo "  WindowsXP 默认启动内存 512M 硬盘 4G"
-echo "  远程桌面地址：${local_ip}:3389 未启动"
+echo "  远程桌面地址：${local_ip}:3388 未启动"
 echo "----------------------------------------"
 echo ""
 
