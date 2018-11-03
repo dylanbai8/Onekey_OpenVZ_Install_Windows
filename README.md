@@ -62,3 +62,14 @@ wget -N --no-check-certificate git.io/w.sh && chmod +x w.sh && bash w.sh
 -net nic -net user 即NAT方式 OpenVZ充当虚拟机的网关和防火墙
 -redir tcp:3389::3389 重定向虚拟机的3389端口到主机的网络界面上
 ```
+
+---
+---
+
+### 开机自启动 Windows 虚拟机
+```
+编辑 /etc/rc.local
+在 exit 0 前新增加一行 粘贴以下代码（具体配置可以自行修改）
+
+qemu-system-x86_64 -hda /root/IMG/win.img -m 512M -smp 1 -daemonize -nographic -vnc :2 -net nic -net user -redir tcp:3389::3389
+```
