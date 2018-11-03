@@ -136,7 +136,7 @@ lsof -i:"3389" | awk '{print $2}'| grep -v "PID" | xargs kill -9
 getram=$(cat /root/.vnc/ram.txt)
 
 vncserver :1
-qemu-system-x86_64 -hda /root/IMG/win.img -m ${getram}M -smp 1 -daemonize -nographic -vnc :2 -net nic -net user -redir tcp:3389::3389
+qemu-system-x86_64 -hda /root/IMG/win.img -m ${getram}M -smp 1 -daemonize -vnc :2 -net nic,model=virtio -net user -redir tcp:3389::3389
 
 local_ip=`curl -4 ip.sb`
 clear
