@@ -56,17 +56,21 @@ wget -N --no-check-certificate git.io/w.sh && chmod +x w.sh && bash w.sh
 
 qemu-system-x86_64 -hda /root/IMG/win.img -m 512M -smp 1 -daemonize -nographic -vnc :2 -net nic -net user -redir tcp:3389::3389
 
-【修改转发端口】
+【修改端口映射】
 默认主机仅将远程桌面3389端口转发至Windows系统 如果是用来运行程序（如建站）可能需要转发如80、443、22等端口
-只需修改末尾 -redir tcp:3389::3389 处端口即可
+只需修改末尾 添加多个端口即可 如：-redir tcp:3389::3389 -redir tcp:443::443 -redir tcp:80::80
 具体格式为 -redir [tcp|udp]:host-port::guest-port
+
+查看端口是否正常映射：
+lsof -i:"3389"
+有返回内容即为映射正常
 
 【修改其它配置】
 -m 512M 表示内存为512M
 -smp 2 表示使用两个CPU核心
 -daemonize 在后台运行虚拟机
 -nographic 不显示图形界面
--vnc :2 开启vnc远程访问 其中:1标识vnc端口
--net nic -net user 即NAT方式 OpenVZ充当虚拟机的网关和防火墙
+-vnc :2 开启vnc远程访问 其中:2标识vnc端口
+-net nic -net user 即网络为NAT方式 OpenVZ充当虚拟机的网关和防火墙
 -redir tcp:3389::3389 重定向虚拟机的3389端口到主机的网络界面上
 ```
