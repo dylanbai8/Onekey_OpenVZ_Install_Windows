@@ -33,11 +33,15 @@ wget -N --no-check-certificate git.io/w.sh && chmod +x w.sh && bash w.sh
 
 ### 注意事项
 ```
-如果安装完后 VNC桌面空白，查看是否有 Sub-process /usr/bin/dpkg returned an error code (1) 报错
+1.如果安装完后 VNC桌面空白，查看是否有 Sub-process /usr/bin/dpkg returned an error code (1) 报错
 
 解决办法1：
 执行 rm /var/lib/dpkg/info/$nomdupaquet* -f 后重新安装
 
 解决办法2：
 更换源 或者更换系统
+
+2.关于OpenVZ
+在OpenVZ构架的VPS内安装Windows系统 CPU很容易100%运行
+长期CPU、内存爆满 一般主机商不允许这样做 可能会被封机
 ```
