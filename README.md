@@ -54,7 +54,7 @@ wget -N --no-check-certificate git.io/w.sh && chmod +x w.sh && bash w.sh
 编辑 /etc/rc.local
 在 exit 0 前新增加一行 粘贴以下代码（具体配置可以自行修改）
 
-qemu-system-x86_64 -hda /root/IMG/win.img -m 512M -smp 1 -daemonize -nographic -vnc :2 -net nic -net user -redir tcp:3389::3389
+qemu-system-x86_64 -hda /root/IMG/win.img -m 512M -smp 1 -daemonize -vnc :2 -net nic,model=virtio -net user -redir tcp:3389::3389
 
 【修改端口映射】
 默认主机仅将远程桌面3389端口转发至Windows系统 如果是用来运行程序（如建站）可能需要转发如80、443、22等端口
@@ -71,6 +71,6 @@ lsof -i:"3389"
 -daemonize 在后台运行虚拟机
 -nographic 不显示图形界面
 -vnc :2 开启vnc远程访问 其中:2标识vnc端口
--net nic -net user 即网络为NAT方式 OpenVZ充当虚拟机的网关和防火墙
+-net nic,model=virtio -net user 即网络为NAT方式 OpenVZ充当虚拟机的网关和防火墙
 -redir tcp:3389::3389 重定向虚拟机的3389端口到主机的网络界面上
 ```
