@@ -92,7 +92,7 @@ mv winxp.img /root/IMG/win.img
 
 # VNC启动时自动启动win虚拟机
 sed -i '/qemu-system-x86_64/'d /root/.vnc/xstartup
-echo 'qemu-system-x86_64 -hda /root/IMG/win.img -m 512M -net nic,model=virtio -net user -redir tcp:3389::3389' >> /root/.vnc/xstartup
+echo 'qemu-system-x86_64 -hda /root/IMG/win.img -m 512M -smp 1 -daemonize -nographic -vnc :2 -net nic -net user -redir tcp:3389::3389' >> /root/.vnc/xstartup
 chmod +x /root/.vnc/xstartup
 }
 
@@ -141,7 +141,8 @@ echo "----------------------------------------"
 echo "  提示：启动 Lxde+VNC（+WindowsXP 如果已安装) 成功"
 echo "  VNC服务器：${local_ip}:1"
 echo ""
-echo "  如果已安装 WindowsXP 预计15分钟后可以连接桌面"
+echo "  如果已安装 WindowsXP 预计5分钟后可以连接桌面"
+echo "  VNC服务器：${local_ip}:2"
 echo "  远程桌面地址：${local_ip}:3389"
 echo "  用户名：administrator 密码：abfan.com"
 echo "----------------------------------------"
@@ -188,7 +189,7 @@ read -e -p "请输入：" ram
 	fi
 
 sed -i '/qemu-system-x86_64/'d /root/.vnc/xstartup
-echo 'qemu-system-x86_64 -hda /root/IMG/win.img -m xxxxM -net nic,model=virtio -net user -redir tcp:3389::3389' >> /root/.vnc/xstartup
+echo 'qemu-system-x86_64 -hda /root/IMG/win.img -m xxxxM -smp 1 -daemonize -nographic -vnc :2 -net nic -net user -redir tcp:3389::3389' >> /root/.vnc/xstartup
 sed -i "s/xxxx/${ram}/g" "/root/.vnc/xstartup"
 chmod +x /root/.vnc/xstartup
 
@@ -246,7 +247,7 @@ mkdir /root/IMG
 qemu-img create /root/IMG/win.img ${ndisk}G
 
 sed -i '/qemu-system-x86_64/'d /root/.vnc/xstartup
-echo 'qemu-system-x86_64 -hda /root/IMG/win.img -m xxxxM -net nic,model=virtio -net user -redir tcp:3389::3389' >> /root/.vnc/xstartup
+echo 'qemu-system-x86_64 -hda /root/IMG/win.img -m xxxxM -smp 1 -daemonize -nographic -vnc :2 -net nic -net user -redir tcp:3389::3389' >> /root/.vnc/xstartup
 sed -i "s/xxxx/${nram}/g" "/root/.vnc/xstartup"
 chmod +x /root/.vnc/xstartup
 
@@ -322,6 +323,13 @@ apt-get purge curl -y
 
 rm -rf /root/.vnc
 rm -rf /root/Desktop
+rm -rf /root/.cache
+rm -rf /root/.config
+rm -rf /root/.dbus
+rm -rf /root/.gconf
+rm -rf /root/.gvfs
+rm -rf /root/.Xauthority
+rm -rf /root/.xsession-errors
 
 # 卸载firefox浏览器和简体中文字体
 apt-get purge iceweasel -y

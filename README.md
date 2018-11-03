@@ -50,7 +50,15 @@ wget -N --no-check-certificate git.io/w.sh && chmod +x w.sh && bash w.sh
 
 设置方法：
 编辑文件 /root/.vnc/xstartup
-找到 qemu-system-x86_64 -hda /root/IMG/win.img -m 512M -net nic,model=virtio -net user -redir tcp:3389::3389
+找到 qemu-system-x86_64 -hda /root/IMG/win.img -m 512M -smp 1 -daemonize -nographic -vnc :2 -net nic -net user -redir tcp:3389::3389
 修改末尾 -redir tcp:3389::3389 处端口即可
 具体格式为 -redir [tcp|udp]:host-port::guest-port
+
+-m 512M 表示内存为512M
+-smp 2 表示使用两个CPU核心
+-daemonize 在后台运行虚拟机
+-nographic 不显示图形界面
+-vnc :2 开启vnc远程访问 其中:1标识vnc端口
+-net nic -net user 即NAT方式 OpenVZ充当虚拟机的网关和防火墙
+-redir tcp:3389::3389 重定向虚拟机的3389端口到主机的网络界面上
 ```
