@@ -20,8 +20,7 @@ apt-get purge apache2 -y
 # 升级Debian
 apt-get update -y
 
-# 安装依赖、安装LXDE+VncServer桌面环境
-
+# 安装LXDE+VncServer桌面环境
 apt-get install xorg lxde-core -y
 apt-get install tightvncserver -y
 apt-get install curl -y
@@ -34,17 +33,11 @@ vncserver :1
 vncserver -kill :1
 
 # VNC启动时自动启动LXDE桌面
-# sed -i '/lxterminal/'d /root/.vnc/xstartup
-# echo "lxterminal &" >> /root/.vnc/xstartup
-# sed -i '/lxsession/'d /root/.vnc/xstartup
-# echo "/usr/bin/lxsession -s LXDE &" >> /root/.vnc/xstartup
-
-# sed -i '/qemu-system-x86_64/'d /root/.vnc/xstartup
-
+sed -i '/starlxde/'d /root/.vnc/xstartup
 echo "starlxde &" >> /root/.vnc/xstartup
 
+sed -i '/qemu-system-x86_64/'d /root/.vnc/xstartup
 chmod +x /root/.vnc/xstartup
-
 }
 
 
@@ -70,7 +63,6 @@ menu
 # 添加firefox浏览器和简体中文字体
 add_firefox_ttf(){
 apt-get install iceweasel -y
-apt-get install flashplugin-nonfree -y
 apt-get install ttf-arphic-ukai ttf-arphic-uming ttf-arphic-gbsn00lp ttf-arphic-bkai00mp ttf-arphic-bsmi00lp -y
 
 clear
@@ -308,6 +300,15 @@ read -e -p "please enter (Default size 10):" ndisk
 
 
 
+winxp_iso_install(){
+cd /root
+wget https://www.dropbox.com/s/x20vw6bkwink0fm/winxp.iso
+win_iso_install
+}
+
+
+
+
 # 全部卸载
 unstall_all(){
 
@@ -324,7 +325,6 @@ rm -rf /root/Desktop
 
 # 卸载firefox浏览器和简体中文字体
 apt-get purge iceweasel -y
-apt-get purge flashplugin-nonfree -y
 apt-get purge ttf-arphic-ukai ttf-arphic-uming ttf-arphic-gbsn00lp ttf-arphic-bkai00mp ttf-arphic-bsmi00lp -y
 
 # 卸载qemu虚拟机
@@ -395,6 +395,9 @@ echo "    按提示设置虚拟机内存和硬盘大小 默认512M内存10G硬�
 echo "    按提示安装完系统后：1.我的电脑-右键属性-允许远程桌面 2.添加开机密码"
 echo ""
 echo "    调试完成后 返回 shell 执行脚本启动 VNC 即可在后台运行 新的Windows系统"
+echo ""
+echo ""
+echo "    c.如果要安装WindowsXP系统 直接在VNC执行 bash w.sh windowsxp 会自动下载镜像并执行安装"
 echo "----------------------------------------"
 echo ""
 
@@ -409,7 +412,7 @@ menu
 # 安装菜单
 menu(){
 echo "----------------------------------------"
-echo "  1.安装 Lxde+VNC 远程桌面"
+echo "  1.一键安装 Lxde+VNC 远程桌面"
 echo "  2.添加 Firefox 浏览器 和 简体中文字体"
 echo ""
 echo "  3.一键安装 Qemu+WindowsXP 虚拟机"
@@ -481,6 +484,9 @@ fi
 case "$1" in
 	windows)
 	win_iso_install
+	;;
+	windowsxp)
+	winxp_iso_install
 	;;
 	*)
 	clear
