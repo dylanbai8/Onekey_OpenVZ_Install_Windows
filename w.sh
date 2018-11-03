@@ -140,7 +140,7 @@ fi
 start_vnc(){
 vncserver -kill :1
 lsof -i:"3389" | awk '{print $2}'| grep -v "PID" | xargs kill -9
-vncserver :1 -geometry 1024x768
+vncserver :1
 
 local_ip=`curl -4 ip.sb`
 clear
@@ -314,8 +314,8 @@ unstall_all(){
 vncserver -kill :1
 
 apt-get purge xorg -y
-apt-get purge lxde-core -y
-apt-get purge vnc4server -y
+apt-get purge lxde -y
+apt-get purge tightvncserver -y
 apt-get purge curl -y
 
 rm -rf /root/.vnc
@@ -329,9 +329,6 @@ apt-get purge ttf-arphic-ukai ttf-arphic-uming ttf-arphic-gbsn00lp ttf-arphic-bk
 # 卸载qemu虚拟机
 lsof -i:"3389" | awk '{print $2}'| grep -v "PID" | xargs kill -9
 apt-get purge qemu -y
-
-# 卸载依赖
-apt-get purge libsdl1.2-dev -y
 
 # 删除IMG镜像
 if [[ -e /root/IMG/win.img ]]; then
