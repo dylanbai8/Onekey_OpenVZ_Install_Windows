@@ -36,7 +36,6 @@ vncserver -kill :1
 sed -i '/starlxde/'d /root/.vnc/xstartup
 echo "starlxde &" >> /root/.vnc/xstartup
 
-sed -i '/qemu-system-x86_64/'d /root/.vnc/xstartup
 chmod +x /root/.vnc/xstartup
 }
 
@@ -90,10 +89,10 @@ wget https://www.dropbox.com/s/gq3e3feukskw72k/winxp.img
 mkdir /root/IMG
 mv winxp.img /root/IMG/win.img
 
-# VNC启动时自动启动win虚拟机
-sed -i '/qemu-system-x86_64/'d /root/.vnc/xstartup
-echo 'qemu-system-x86_64 -hda /root/IMG/win.img -m 512M -smp 1 -daemonize -nographic -vnc :2 -net nic -net user -redir tcp:3389::3389' >> /root/.vnc/xstartup
-chmod +x /root/.vnc/xstartup
+	touch /root/.vnc/ram.txt
+	cat <<EOF > /root/.vnc/ram.txt
+512
+EOF
 }
 
 
@@ -133,8 +132,11 @@ fi
 start_vnc(){
 vncserver -kill :1
 lsof -i:"3389" | awk '{print $2}'| grep -v "PID" | xargs kill -9
+
+getram=$(cat /root/.vnc/ram.txt)
+
 vncserver :1
-qemu-system-x86_64 -hda /root/IMG/win.img -m 512M -smp 1 -daemonize -nographic -vnc :2 -net nic -net user -redir tcp:3389::3389
+qemu-system-x86_64 -hda /root/IMG/win.img -m ${getram}M -smp 1 -daemonize -nographic -vnc :2 -net nic -net user -redir tcp:3389::3389
 
 local_ip=`curl -4 ip.sb`
 clear
@@ -189,10 +191,10 @@ read -e -p "请输入：" ram
 	set_win_ram
 	fi
 
-sed -i '/qemu-system-x86_64/'d /root/.vnc/xstartup
-echo 'qemu-system-x86_64 -hda /root/IMG/win.img -m xxxxM -smp 1 -daemonize -nographic -vnc :2 -net nic -net user -redir tcp:3389::3389' >> /root/.vnc/xstartup
-sed -i "s/xxxx/${ram}/g" "/root/.vnc/xstartup"
-chmod +x /root/.vnc/xstartup
+	touch /root/.vnc/ram.txt
+	cat <<EOF > /root/.vnc/ram.txt
+${ram}
+EOF
 
 clear
 echo "----------------------------------------"
@@ -243,14 +245,14 @@ apt-get install qemu -y
 
 win_iso_ram_disk
 
+	touch /root/.vnc/ram.txt
+	cat <<EOF > /root/.vnc/ram.txt
+${nram}
+EOF
+
 rm -rf /root/IMG
 mkdir /root/IMG
 qemu-img create /root/IMG/win.img ${ndisk}G
-
-sed -i '/qemu-system-x86_64/'d /root/.vnc/xstartup
-echo 'qemu-system-x86_64 -hda /root/IMG/win.img -m xxxxM -smp 1 -daemonize -nographic -vnc :2 -net nic -net user -redir tcp:3389::3389' >> /root/.vnc/xstartup
-sed -i "s/xxxx/${nram}/g" "/root/.vnc/xstartup"
-chmod +x /root/.vnc/xstartup
 
 qemu-system-x86_64 -cdrom /root/win.iso -m ${nram}M -boot d /root/IMG/win.img -k en-us
 
@@ -395,7 +397,7 @@ echo "    a.VNC服务器地址：${local_ip}:1"
 echo "    Windows客户端下载地址："
 echo "    https://github.com/dylanbai8/Onekey_OpenVZ_Install_Windows/raw/master/VNC-4.0-x86_CN.exe"
 echo ""
-echo "    b.在 VNC 桌面内 打开终端（LXTerminal）执行以下命令："
+echo "    b.在 VNC 桌面内 打开终端（Terminal）执行以下命令："
 echo ""
 echo "    bash w.sh windows"
 echo ""
