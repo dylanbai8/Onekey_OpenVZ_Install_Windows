@@ -22,8 +22,7 @@ apt-get update -y
 
 # 安装依赖、安装LXDE+VncServer桌面环境
 
-apt-get install xorg -y
-apt-get install lxde -y
+apt-get install xorg lxde-core -y
 apt-get install tightvncserver -y
 apt-get install curl -y
 
@@ -35,12 +34,14 @@ vncserver :1
 vncserver -kill :1
 
 # VNC启动时自动启动LXDE桌面
-sed -i '/lxterminal/'d /root/.vnc/xstartup
-echo "lxterminal &" >> /root/.vnc/xstartup
-sed -i '/lxsession/'d /root/.vnc/xstartup
-echo "/usr/bin/lxsession -s LXDE &" >> /root/.vnc/xstartup
+# sed -i '/lxterminal/'d /root/.vnc/xstartup
+# echo "lxterminal &" >> /root/.vnc/xstartup
+# sed -i '/lxsession/'d /root/.vnc/xstartup
+# echo "/usr/bin/lxsession -s LXDE &" >> /root/.vnc/xstartup
 
-sed -i '/qemu-system-x86_64/'d /root/.vnc/xstartup
+# sed -i '/qemu-system-x86_64/'d /root/.vnc/xstartup
+
+echo "starlxde &" >> /root/.vnc/xstartup
 
 chmod +x /root/.vnc/xstartup
 
