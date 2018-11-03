@@ -43,10 +43,10 @@ wget -N --no-check-certificate git.io/w.sh && chmod +x w.sh && bash w.sh
 
 2.关于OpenVZ
 在OpenVZ构架的VPS内安装Windows系统 CPU很容易100%运行
-长期CPU、内存爆满 一般主机商不允许这样做 
+长期CPU、内存爆满 一般主机商不允许这样做 可能被判定为滥用而停封
 
 3.转发端口
-默认主机仅将远程桌面3389端口转发至Windows系统 如果是用来允许程序（如建站）可能需要转发如80、443、22等端口
+默认主机仅将远程桌面3389端口转发至Windows系统 如果是用来运行程序（如建站）可能需要转发如80、443、22等端口
 
 设置方法：
 编辑文件 /root/.vnc/xstartup
