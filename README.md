@@ -43,5 +43,14 @@ wget -N --no-check-certificate git.io/w.sh && chmod +x w.sh && bash w.sh
 
 2.关于OpenVZ
 在OpenVZ构架的VPS内安装Windows系统 CPU很容易100%运行
-长期CPU、内存爆满 一般主机商不允许这样做 可能会被封机
+长期CPU、内存爆满 一般主机商不允许这样做 
+
+3.转发端口
+默认主机仅将远程桌面3389端口转发至Windows系统 如果是用来允许程序（如建站）可能需要转发如80、443、22等端口
+
+设置方法：
+编辑文件 /root/.vnc/xstartup
+找到 qemu-system-x86_64 -hda /root/IMG/win.img -m 512M -net nic,model=virtio -net user -redir tcp:3389::3389
+修改末尾 -redir tcp:3389::3389 处端口即可
+具体格式为 -redir [tcp|udp]:host-port::guest-port
 ```
