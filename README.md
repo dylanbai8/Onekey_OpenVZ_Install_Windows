@@ -25,7 +25,19 @@ wget -N --no-check-certificate git.io/w.sh && chmod +x w.sh && bash w.sh
 
 ### 安装自定义 Windows 系统 （iOS 镜像）
 ```
-执行 7 查看
+执行 7 按提示操作
 ```
 
+---
+---
 
+### 注意事项
+```
+如果安装完后 VNC桌面空白，查看是否有 Sub-process /usr/bin/dpkg returned an error code (1) 报错
+
+解决办法1：
+执行 rm /var/lib/dpkg/info/$nomdupaquet* -f 后重新安装
+
+解决办法2：
+更换源 或者更换系统
+```
