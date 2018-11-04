@@ -5,7 +5,7 @@
 #	Author: dylanbai8
 #	Dscription: OpenVZ虚拟化（架构）VPS 一键安装 Windows 系统
 #	Open Source: https://github.com/dylanbai8/Onekey_OpenVZ_Install_Windows
-#	Official document: https://v0v.bid
+#	Official document: https://oo0.bid
 #====================================================
 
 
