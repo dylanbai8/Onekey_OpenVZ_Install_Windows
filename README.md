@@ -76,7 +76,6 @@ lsof -i:"3389"
 -m 512M 表示内存为512M
 -smp 2 表示使用两个CPU核心
 -daemonize 在后台运行虚拟机
--nographic 不显示图形界面
 -vnc :2 开启vnc远程访问 其中:2标识vnc端口
 -net nic,model=virtio -net user 即网络为NAT方式 OpenVZ充当虚拟机的网关和防火墙
 -redir tcp:3389::3389 重定向虚拟机的3389端口到主机的网络界面上
